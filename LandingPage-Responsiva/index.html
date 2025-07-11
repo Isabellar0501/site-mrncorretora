@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="Pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>webSite</title>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <a href="#" class="logo">
+            <img class="logo" src="assets/logoSonofi.png">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#">Home</a></li>
+                <li class="nav-item"><a href="#aboutUsAnchor">Sobre Nós</a></li>
+                <li class="nav-item"><a href="#formAnchor">Contato</a></li>
+                <li class="nav-item"><a href="./login.html">Login</a></li>
+                <i class='bx bx-search'></i>
+            </ul>
+            <div class="menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="hint">
+        <i class='bx bx-chevron-up'></i>
+        <i class='bx bx-dots-vertical-rounded'></i>
+        <i class='bx bx-mouse'></i>
+        <i class='bx bx-dots-vertical-rounded'></i>
+        <i class='bx bx-chevron-down'></i>
+    </div>
+
+    <main>
+        <section class="home">
+            <div class="home-text">
+                <h4 class="text-h4">Bem-Vindo ao Novo</h4>
+                <h1 class="text-h1">Recibo Ágil</h1>
+                <p>Seus recibos lidos e processados diretamente na sua tela em segundos.</p>
+                <a href="#" class="home-btn">Conheça Mais</a>
+            </div>
+            <div class="home-img">
+                <img src="assets/appFinance.png">
+            </div>
+        </section>
+    </main>    
+        
+    <section>
+        <div class="container">
+            <h1 class="text-h1">Perguntas Frequentes</h1>
+            <br>
+            <ul class="perguntas">
+                <li>
+                <h2 class="pergunta-titulo" onclick="togglePergunta(this)">Como digitalizar os recibos?
+                    <i class="fas fa-chevron-down"></i>
+                </h2>
+                <p class="pergunta-descricao">Digitalize recibos com o software OCR: Clique dentro da área param processar um arquivo de imagem. Ele inicia automaticamente o processo de OCR. Os resultados do reconhecimento serão exibidos e podem ser copiados.</p>
+                </li>
+                <li>
+                <h2 class="pergunta-titulo" onclick="togglePergunta(this)">O Recibo Ágil é gratuito?
+                    <i class="fas fa-chevron-down"></i>
+                </h2>
+                <p class="pergunta-descricao">Nosso aplicativo de OCR é totalmente gratuito. Sinta-se à vontade para usá-lo o quanto quiser..</p>
+                </li>
+                <li>
+                <h2 class="pergunta-titulo" onclick="togglePergunta(this)">Como posso visualizar?
+                    <i class="fas fa-chevron-down"></i>
+                </h2>
+                <p class="pergunta-descricao">É só clicar nas transações em home.</p>
+                </li>
+            </ul>
+            </div>
+    </section>
+
+    <section class="home" id="aboutUsAnchor">
+        <div class="home-text">
+            <h4 class="text-h4">Sobre nós</h4>
+            <p>Somos uma empresa sem fins lucrativos de open source que facilita o processamento de recibos de Micro Empreendedores para garantir uma melhor gestão de suas finanças e fluxo de caixa.</p>
+            <a href="#" class="home-btn">Conheça Mais</a>
+        </div>
+        <div class="home-img">
+            <img src="assets/About.png" class="image-animation">
+        </div>
+    </section>
+
+    <section class="form" id="formAnchor">
+            <div class="container">
+                <h1>Contate-nos</h1>
+                <form action="#" method="POST"> 
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensagem:</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Enviar</button>
+                </form>
+            </div>
+        </section>
+    
+    <script src="script.js"></script>
+</body>
+<footer class="rodape">
+    <p>&copy; 2023 Recibo Ágil. Todos os direitos reservados.</p>
+</footer>
