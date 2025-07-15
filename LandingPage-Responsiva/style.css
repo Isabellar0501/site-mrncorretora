@@ -10,7 +10,7 @@
     text-decoration: none;
 }
 :root{
-    --pink:#B44874;
+    --pink:#0c2745;
     --white:#fff;
     --dark:#1e1c2a;
 }
@@ -22,8 +22,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 40px;
-    box-shadow: 0 0.1rem 0.5rem #ccc;
+    padding: 4px 15px;
+    box-shadow: 0 0.1rem 0.5rem #0c2745;
     width: 100%;
     background: var(--white);
     transition: all 0.5s;
@@ -48,6 +48,16 @@ body{
 .navigation i{
     cursor: pointer;
     font-size: 1.5rem;
+}
+
+.logomrn {
+    width: 125px; /* ou qualquer valor desejado */
+    height: auto; /* mantém a proporção */
+}
+
+
+.logocentral {
+    padding: 0px 40px;
 }
 
 .menu{
@@ -101,7 +111,7 @@ body{
     transition: all 0.5s;
 }
 .home-btn:hover{
-    background: #e25088;
+    background: #274a72;
 }
 .home-img img{
     width: 100%;
@@ -206,7 +216,7 @@ textarea {
 }
 
 .submit-button:hover {
-    background-color: #e25088;
+    background-color: #274a72;
 }
 
 @media (max-width: 600px) {
