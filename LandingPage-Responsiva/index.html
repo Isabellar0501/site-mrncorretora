@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="Pt-br">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,19 +7,21 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>webSite</title>
+    <title>MRN Corretora - Proteção e Confiança</title>
 </head>
 <body>
     <header>
         <nav class="navigation">
             <a href="#" class="logo">
-            <img class="logomrn" src="assets/mrnlogocorretora.png">
+                <i class='bx bx-shield-check'></i>
+                <img src="assets/mrnlogocorretora.png">
+            </a>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="#">Home</a></li>
+                <li class="nav-item"><a href="#home">Home</a></li>
                 <li class="nav-item"><a href="#aboutUsAnchor">Sobre Nós</a></li>
+                <li class="nav-item"><a href="#servicos">Serviços</a></li>
                 <li class="nav-item"><a href="#formAnchor">Contato</a></li>
-                <li class="nav-item"><a href="./login.html">Login</a></li>
-                <i class='bx bx-search'></i>
+                <li class="nav-item"><a href="#" style="background: var(--accent); color: white; padding: 10px 20px; border-radius: 25px;">Cotação</a></li>
             </ul>
             <div class="menu">
                 <span class="bar"></span>
@@ -38,81 +40,203 @@
     </div>
 
     <main>
-        <section class="home">
+        <section class="home" id="home">
             <div class="home-text">
-                <h4 class="text-h4">Bem-Vindo a</h4>
-                <img class="logocentral" src="assets/mrnlogocorretora.png">
-                <p>Proteção, tranquilidade e confiança ao seu alcance. Cote e contrate seguros de forma rápida e segura.</p>
-                <a href="#" class="home-btn">Conheça Mais</a>
+                <h4 class="text-h4">Bem-vindo à</h4>
+                <h1>MRN Corretora</h1>
+                <p>Solidez e confiança há mais de 20 anos. Proteção completa para você, sua família e seu patrimônio com as melhores soluções em seguros do mercado.</p>
+                <a href="#formAnchor" class="home-btn">Faça sua Cotação</a>
             </div>
             <div class="home-img">
-                <img src="assets/appFinance.png">
+                <img src="assets/mrnfundo.png" alt="Seguros">
             </div>
         </section>
-    </main>    
-        
-    <section>
+    </main>
+    
+    <!-- Stats Section -->
+    <section class="stats">
+        <h2>Solidez e Confiança</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number counter">10</div>
+                <div class="stat-label">Colaboradores</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number counter">1300</div>
+                <div class="stat-label">Vidas Protegidas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number counter">1500</div>
+                <div class="stat-label">Veículos Protegidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number counter">2800</div>
+                <div class="stat-label">Clientes</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services" id="servicos">
+        <h2>Nossas Soluções</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class='bx bx-car'></i>
+                </div>
+                <h3>Seguro Auto</h3>
+                <p>Proteção completa para seu veículo com cobertura 24h, assistência técnica e os melhores preços do mercado.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class='bx bx-home-heart'></i>
+                </div>
+                <h3>Seguro Residencial</h3>
+                <p>Segurança para sua casa e família com coberturas contra incêndio, roubo, danos elétricos e muito mais.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class='bx bx-heart'></i>
+                </div>
+                <h3>Seguro Saúde</h3>
+                <p>Planos de saúde completos com rede credenciada nacional e atendimento de primeira qualidade.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class='bx bx-briefcase'></i>
+                </div>
+                <h3>Seguro Empresarial</h3>
+                <p>Soluções corporativas para proteger seu negócio, colaboradores e patrimônio empresarial.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class='bx bx-shield-check'></i>
+                </div>
+                <h3>Seguro Vida</h3>
+                <p>Tranquilidade e proteção financeira para sua família com planos flexíveis e coberturas amplas.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class='bx bx-phone'></i>
+                </div>
+                <h3>Dr. MRN</h3>
+                <p>Plataforma de telessaúde com mais de 23 especialidades médicas, psicólogos e nutricionistas.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
         <div class="container">
-            <h1 class="text-h1">Perguntas Frequentes</h1>
-            <br>
+            <h1>Perguntas Frequentes</h1>
             <ul class="perguntas">
                 <li>
-                <h2 class="pergunta-titulo" onclick="togglePergunta(this)">Como digitalizar os recibos?
-                    <i class="fas fa-chevron-down"></i>
-                </h2>
-                <p class="pergunta-descricao">Digitalize recibos com o software OCR: Clique dentro da área param processar um arquivo de imagem. Ele inicia automaticamente o processo de OCR. Os resultados do reconhecimento serão exibidos e podem ser copiados.</p>
+                    <h2 class="pergunta-titulo" onclick="togglePergunta(this)">
+                        Como contratar um seguro?
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <p class="pergunta-descricao">É muito simples! Você pode fazer uma cotação online em nosso site, entrar em contato conosco por telefone ou visitar uma de nossas 29 filiais espalhadas pelo Brasil. Nossos consultores especializados irão te ajudar a escolher a melhor opção para suas necessidades.</p>
                 </li>
                 <li>
-                <h2 class="pergunta-titulo" onclick="togglePergunta(this)">O Recibo Ágil é gratuito?
-                    <i class="fas fa-chevron-down"></i>
-                </h2>
-                <p class="pergunta-descricao">Nosso aplicativo de OCR é totalmente gratuito. Sinta-se à vontade para usá-lo o quanto quiser..</p>
+                    <h2 class="pergunta-titulo" onclick="togglePergunta(this)">
+                        Quais são as formas de pagamento?
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <p class="pergunta-descricao">Oferecemos diversas opções de pagamento: cartão de crédito, débito automático, boleto bancário, PIX e parcelamento em até 12x. Você escolhe a forma que melhor se adapta ao seu orçamento.</p>
                 </li>
                 <li>
-                <h2 class="pergunta-titulo" onclick="togglePergunta(this)">Como posso visualizar?
-                    <i class="fas fa-chevron-down"></i>
-                </h2>
-                <p class="pergunta-descricao">É só clicar nas transações em home.</p>
+                    <h2 class="pergunta-titulo" onclick="togglePergunta(this)">
+                        Como acionar meu seguro em caso de sinistro?
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <p class="pergunta-descricao">Temos atendimento 24h por meio do nosso call center, aplicativo móvel ou site. Nossa equipe especializada irá te orientar sobre todos os procedimentos e documentos necessários para agilizar o processo.</p>
                 </li>
             </ul>
-            </div>
+        </div>
     </section>
 
-    <section class="home" id="aboutUsAnchor">
-        <div class="home-text">
-            <h4 class="text-h4">Sobre nós</h4>
-            <p>Somos uma empresa sem fins lucrativos de open source que facilita o processamento de recibos de Micro Empreendedores para garantir uma melhor gestão de suas finanças e fluxo de caixa.</p>
-            <a href="#" class="home-btn">Conheça Mais</a>
+    <section class="about" id="aboutUsAnchor">
+        <div class="about-text">
+            <h4 class="text-h4">Sobre Nós</h4>
+            <h2>Mais de 4 anos protegendo o que mais importa para você</h2>
+            <p>Somos uma das maiores corretoras de seguros do Brasil, com mais de 1.200 colaboradores dedicados a oferecer proteção e tranquilidade para mais de 1.3 milhão de brasileiros. Nossa missão é democratizar o acesso aos seguros, oferecendo soluções completas e personalizadas para cada necessidade.</p>
+            <a href="#formAnchor" class="home-btn">Conheça Mais</a>
         </div>
-        <div class="home-img">
-            <img src="assets/About.png" class="image-animation">
+        <div class="about-img">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Equipe" class="image-animation">
         </div>
     </section>
 
     <section class="form" id="formAnchor">
-            <div class="container">
-                <h1>Contate-nos</h1>
-                <form action="#" method="POST"> 
+        <div class="container">
+            <h1>Solicite sua Cotação</h1>
+            <form id="cotacao-form" method="POST">
                 <div class="form-group">
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="name">Nome Completo: *</label>
+                    <input type="text" id="name" name="name" required placeholder="Digite seu nome completo">
                 </div>
                 <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="email">E-mail: *</label>
+                    <input type="email" id="email" name="email" required placeholder="seu@email.com">
                 </div>
                 <div class="form-group">
-                    <label for="message">Mensagem:</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <label for="phone">Telefone: *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="(11) 99999-9999">
                 </div>
-                <button type="submit" class="submit-button">Enviar</button>
-                </form>
+                <div class="form-group">
+                    <label for="service">Tipo de Seguro: *</label>
+                    <select id="service" name="service" required>
+                        <option value="">Selecione um tipo de seguro</option>
+                        <option value="auto">Seguro Auto</option>
+                        <option value="residencial">Seguro Residencial</option>
+                        <option value="saude">Seguro Saúde</option>
+                        <option value="vida">Seguro Vida</option>
+                        <option value="empresarial">Seguro Empresarial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensagem: *</label>
+                    <textarea id="message" name="message" required placeholder="Conte-nos mais sobre suas necessidades de seguro..." rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-button">
+                    <i class='bx bx-send'></i>
+                    Solicitar Cotação
+                </button>
+            </form>
+            
+            <!-- Informações de contato alternativas -->
+            <div style="margin-top: 2rem; text-align: center; color: var(--text-gray);">
+                <p><strong>Ou entre em contato diretamente:</strong></p>
+                <p>📞 <a href="tel:+5511999999999">(11) 99999-9999</a></p>
+                <p>📧 <a href="mailto:bebellabr@gmail.com">bebellabr@gmail.com</a></p>
+                <p>🕐 Atendimento: Segunda a Sexta, 9h às 18h</p>
             </div>
-        </section>
-    
-    <script src="script.js"></script>
+        </div>
+    </section>
     
     <footer class="rodape">
-        <p>&copy; 2023 Recibo Ágil. Todos os direitos reservados.</p>
+        <p>&copy; 2024 MRN Corretora. Todos os direitos reservados.</p>
     </footer>
+    
+    <!-- Scripts -->
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- Scripts locais -->
+    <script src="script.js"></script>
+    <script src="form-handler.js"></script>
+    
+    <!-- Configuração EmailJS -->
+    <script>
+        // Configurar EmailJS com sua chave pública
+        // IMPORTANTE: Substitua 'YOUR_PUBLIC_KEY' pela sua chave real do EmailJS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Se você configurar o EmailJS, descomente e configure:
+            // emailjs.init('YOUR_PUBLIC_KEY');
+            
+            // Para teste, iremos usar apenas o método mailto
+            console.log('Sistema de cotação carregado. Emails serão enviados para: bebellabr@gmail.com');
+        });
+    </script>
 </body>
+</html>
