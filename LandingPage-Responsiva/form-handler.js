@@ -15,7 +15,7 @@ const EMAIL_CONFIG = {
     userID: 'bPzYYP5mGaL1x1wsA',
     
     // ✅ EMAIL DE DESTINO (já configurado)
-    destinationEmail: 'bebellabr@gmail.com'
+    destinationEmail: 'mrrnunescorretora@gmail.com'
 };
 
 // 🚀 INICIALIZAÇÃO
@@ -200,8 +200,8 @@ ${data.message}
 
 ──────────────────────────────────────────────────
 📧 Esta cotação foi enviada pelo site da MRN Corretora
-📞 Para contato direto: (11) 99999-9999
-🌐 Site: https://mrnCorretora.com.br
+📞 Para contato direto: (11) 954234299
+🌐 Site: https://mrncorretora.com.br
 `.trim();
 }
 
