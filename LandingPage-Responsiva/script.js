@@ -74,6 +74,96 @@ function animateCounters() {
     });
 }
 
+// Inicialização do Carrossel de Seguradoras
+function initCarrossel() {
+    // Verificar se o Swiper está disponível
+    if (typeof Swiper !== 'undefined') {
+        console.log('✅ Swiper encontrado, inicializando carrossel...');
+        
+        const swiper = new Swiper('.elementor-image-carousel-wrapper', {
+            slidesPerView: 5,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            speed: 800,
+            navigation: {
+                nextEl: '.elementor-swiper-button-next',
+                prevEl: '.elementor-swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                480: {
+                    slidesPerView: 2,
+                    spaceBetween: 15
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1200: {
+                    slidesPerView: 5,
+                    spaceBetween: 20
+                }
+            },
+            // Efeitos visuais adicionais
+            effect: 'slide',
+            grabCursor: true,
+            centeredSlides: false,
+            slidesPerGroup: 1,
+        });
+        
+        console.log('✅ Carrossel de seguradoras inicializado com sucesso!');
+        
+        // Adicionar eventos personalizados
+        swiper.on('slideChange', function () {
+            console.log('Slide mudou para:', swiper.activeIndex);
+        });
+        
+        // Pausar autoplay ao hover no container
+        const carrosselContainer = document.querySelector('.elementor-image-carousel-wrapper');
+        if (carrosselContainer) {
+            carrosselContainer.addEventListener('mouseenter', () => {
+                swiper.autoplay.stop();
+            });
+            
+            carrosselContainer.addEventListener('mouseleave', () => {
+                swiper.autoplay.start();
+            });
+        }
+        
+    } else {
+        console.error('❌ Swiper não encontrado. Verifique se está carregado na página.');
+        
+        // Fallback: mostrar todas as imagens sem carrossel
+        const wrapper = document.querySelector('.elementor-image-carousel-wrapper');
+        if (wrapper) {
+            wrapper.style.overflow = 'visible';
+            const swiperWrapper = wrapper.querySelector('.swiper-wrapper');
+            if (swiperWrapper) {
+                swiperWrapper.style.display = 'flex';
+                swiperWrapper.style.flexWrap = 'wrap';
+                swiperWrapper.style.justifyContent = 'center';
+            }
+        }
+    }
+}
+
 // Intersection Observer para animações
 const observerOptions = {
     threshold: 0.1,
@@ -88,6 +178,14 @@ const observer = new IntersectionObserver((entries) => {
                 observer.unobserve(entry.target);
             }
             
+            if (entry.target.classList.contains('seguradoras-section')) {
+                // Inicializar carrossel quando a seção ficar visível
+                setTimeout(() => {
+                    initCarrossel();
+                }, 200);
+                observer.unobserve(entry.target);
+            }
+            
             // Adicionar classe de animação para outros elementos
             entry.target.classList.add('animate');
         }
@@ -96,7 +194,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observar seções para animações
 document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.stats, .services, .about');
+    const sections = document.querySelectorAll('.stats, .services, .about, .seguradoras-section');
     sections.forEach(section => {
         observer.observe(section);
     });
@@ -114,7 +212,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Form validation and submission
+// Form validation and submission (mantendo o sistema original)
 document.querySelector('.form form').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -139,16 +237,16 @@ document.querySelector('.form form').addEventListener('submit', function(e) {
     
     // Simulação de envio
     const submitButton = document.querySelector('.submit-button');
-    const originalText = submitButton.textContent;
+    const originalText = submitButton.innerHTML;
     
-    submitButton.textContent = 'Enviando...';
+    submitButton.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Enviando...';
     submitButton.disabled = true;
     
     // Simular envio (substituir por integração real)
     setTimeout(() => {
         alert('Cotação solicitada com sucesso! Entraremos em contato em breve.');
         this.reset();
-        submitButton.textContent = originalText;
+        submitButton.innerHTML = originalText;
         submitButton.disabled = false;
     }, 2000);
 });
@@ -202,9 +300,11 @@ if ('IntersectionObserver' in window) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
             }
         });
     });
@@ -229,23 +329,6 @@ document.querySelectorAll('.service-card').forEach(card => {
 const scrollToTopBtn = document.createElement('button');
 scrollToTopBtn.innerHTML = '<i class="bx bx-up-arrow-alt"></i>';
 scrollToTopBtn.className = 'scroll-to-top';
-scrollToTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-`;
 
 document.body.appendChild(scrollToTopBtn);
 
@@ -286,3 +369,15 @@ observeElements.forEach(el => {
     el.style.transition = 'all 0.6s ease';
     elementObserver.observe(el);
 });
+
+// Debug do carrossel
+window.debugCarrossel = function() {
+    console.log('🔍 Debug do Carrossel:');
+    console.log('- Swiper disponível:', typeof Swiper !== 'undefined');
+    console.log('- Container encontrado:', !!document.querySelector('.elementor-image-carousel-wrapper'));
+    console.log('- Slides encontrados:', document.querySelectorAll('.swiper-slide').length);
+    console.log('- Botões encontrados:', document.querySelectorAll('.elementor-swiper-button').length);
+};
+
+console.log('✅ Script principal carregado com sucesso!');
+console.log('💡 Use window.debugCarrossel() para debug do carrossel');
