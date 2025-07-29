@@ -325,5 +325,34 @@
             console.log('Sistema de cotação carregado. Emails serão enviados para: bebellabr@gmail.com');
         });
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.elementor-image-carousel-wrapper.swiper', {
+    loop: true,
+    slidesPerView: 4,
+    spaceBetween: 20,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    breakpoints: {
+        320: {
+        slidesPerView: 1,
+        },
+        640: {
+        slidesPerView: 2,
+        },
+        1024: {
+        slidesPerView: 4,
+        }
+    }
+});
+});
+</script>
 </body>
 </html>
