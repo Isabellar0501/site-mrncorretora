@@ -1,3 +1,7 @@
+// ========================================
+// 🎠 CARROSSEL PERSONALIZADO - MRN CORRETORA
+// ========================================
+
 // Menu Mobile Toggle
 const menu = document.querySelector('.menu');
 const navMenu = document.querySelector('.nav-menu');
@@ -74,127 +78,414 @@ function animateCounters() {
     });
 }
 
-// Inicialização do Carrossel de Seguradoras - CORRIGIDO
-function initCarrossel() {
-    // Verificar se o Swiper está disponível
-    if (typeof Swiper === 'undefined') {
-        console.error('❌ Swiper não encontrado. Verifique se o arquivo swiper-bundle.min.js foi carregado.');
-        return;
-    }
+// ========================================
+// 🎠 CLASSE DO CARROSSEL PERSONALIZADO
+// ========================================
 
-    console.log('✅ Swiper encontrado, inicializando carrossel...');
-    
-    // Verificar se o container existe
-    const swiperContainer = document.querySelector('.elementor-image-carousel-wrapper');
-    if (!swiperContainer) {
-        console.error('❌ Container do carrossel não encontrado');
-        return;
-    }
-
-    console.log('✅ Container encontrado, criando instância do Swiper...');
-    
-    try {
-        const swiper = new Swiper('.elementor-image-carousel-wrapper', {
-            // Configurações básicas
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            centeredSlides: false,
-            
-            // Autoplay
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            
-            // Velocidade
-            speed: 800,
-            
-            // Navegação
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            
-            // Paginação
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-                dynamicBullets: true,
-            },
-            
-            // Responsivo
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                480: {
-                    slidesPerView: 2,
-                    spaceBetween: 15
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 20
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20
-                },
-                1200: {
-                    slidesPerView: 5,
-                    spaceBetween: 20
-                }
-            },
-            
-            // Efeitos
-            effect: 'slide',
-            grabCursor: true,
-            
-            // Callbacks
-            on: {
-                init: function() {
-                    console.log('✅ Swiper inicializado com sucesso!');
-                },
-                slideChange: function() {
-                    console.log('Slide mudou para:', this.activeIndex);
-                }
-            }
-        });
+class CustomCarousel {
+    constructor(containerSelector, options = {}) {
+        // Elementos do DOM
+        this.container = document.querySelector(containerSelector);
+        this.track = this.container?.querySelector('.custom-carousel-track');
+        this.slides = this.container?.querySelectorAll('.carousel-slide');
+        this.prevBtn = this.container?.querySelector('#carouselPrev');
+        this.nextBtn = this.container?.querySelector('#carouselNext');
+        this.indicatorsContainer = this.container?.querySelector('#carouselIndicators');
         
-        console.log('✅ Carrossel de seguradoras criado:', swiper);
-        
-        // Pausar autoplay ao hover
-        swiperContainer.addEventListener('mouseenter', () => {
-            if (swiper.autoplay) {
-                swiper.autoplay.stop();
-            }
-        });
-        
-        swiperContainer.addEventListener('mouseleave', () => {
-            if (swiper.autoplay) {
-                swiper.autoplay.start();
-            }
-        });
-        
-        return swiper;
-        
-    } catch (error) {
-        console.error('❌ Erro ao inicializar Swiper:', error);
-        
-        // Fallback: mostrar como grid
-        const wrapper = swiperContainer.querySelector('.swiper-wrapper');
-        if (wrapper) {
-            wrapper.style.display = 'flex';
-            wrapper.style.flexWrap = 'wrap';
-            wrapper.style.justifyContent = 'center';
-            wrapper.style.gap = '1rem';
+        if (!this.container || !this.track || !this.slides.length) {
+            console.error('❌ Elementos do carrossel não encontrados');
+            return;
         }
+        
+        // Configurações
+        this.options = {
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            infinite: true,
+            speed: 600,
+            responsive: [
+                { breakpoint: 1200, settings: { slidesToShow: 4 } },
+                { breakpoint: 768, settings: { slidesToShow: 3 } },
+                { breakpoint: 480, settings: { slidesToShow: 2 } }
+            ],
+            ...options
+        };
+        
+        // Estado do carrossel
+        this.currentIndex = 0;
+        this.totalSlides = this.slides.length;
+        this.slidesToShow = this.options.slidesToShow;
+        this.maxIndex = Math.max(0, this.totalSlides - this.slidesToShow);
+        this.isPlaying = this.options.autoplay;
+        this.autoplayTimer = null;
+        this.isDragging = false;
+        this.startX = 0;
+        this.currentX = 0;
+        this.initialTransform = 0;
+        
+        console.log('🎠 Inicializando carrossel personalizado...');
+        this.init();
+    }
+    
+    init() {
+        this.setupSlides();
+        this.createIndicators();
+        this.setupEventListeners();
+        this.updateResponsive();
+        this.updateCarousel();
+        this.startAutoplay();
+        
+        console.log('✅ Carrossel inicializado com sucesso!');
+        console.log(`📊 Total de slides: ${this.totalSlides}, Mostrando: ${this.slidesToShow}`);
+    }
+    
+    setupSlides() {
+        // Clonar slides para efeito infinito se necessário
+        if (this.options.infinite && this.totalSlides > this.slidesToShow) {
+            const firstSlides = Array.from(this.slides).slice(0, this.slidesToShow);
+            const lastSlides = Array.from(this.slides).slice(-this.slidesToShow);
+            
+            // Adicionar clones no final
+            firstSlides.forEach(slide => {
+                const clone = slide.cloneNode(true);
+                clone.classList.add('clone');
+                this.track.appendChild(clone);
+            });
+            
+            // Adicionar clones no início
+            lastSlides.reverse().forEach(slide => {
+                const clone = slide.cloneNode(true);
+                clone.classList.add('clone');
+                this.track.insertBefore(clone, this.track.firstChild);
+            });
+            
+            // Atualizar referências
+            this.allSlides = this.track.querySelectorAll('.carousel-slide');
+            this.currentIndex = this.slidesToShow; // Começar após os clones
+        } else {
+            this.allSlides = this.slides;
+        }
+        
+        // Definir largura dos slides
+        this.updateSlideWidth();
+    }
+    
+    updateSlideWidth() {
+        const containerWidth = this.container.offsetWidth - 120; // Desconto para botões
+        const slideWidth = containerWidth / this.slidesToShow;
+        
+        this.allSlides.forEach(slide => {
+            slide.style.width = `${slideWidth - 20}px`; // Gap entre slides
+        });
+        
+        this.slideWidth = slideWidth;
+    }
+    
+    createIndicators() {
+        if (!this.indicatorsContainer) return;
+        
+        this.indicatorsContainer.innerHTML = '';
+        const indicatorCount = Math.ceil(this.totalSlides / this.slidesToShow);
+        
+        for (let i = 0; i < indicatorCount; i++) {
+            const indicator = document.createElement('button');
+            indicator.className = 'carousel-indicator';
+            indicator.setAttribute('data-slide', i);
+            indicator.addEventListener('click', () => this.goToSlide(i));
+            this.indicatorsContainer.appendChild(indicator);
+        }
+        
+        this.indicators = this.indicatorsContainer.querySelectorAll('.carousel-indicator');
+    }
+    
+    setupEventListeners() {
+        // Botões de navegação
+        this.prevBtn?.addEventListener('click', () => this.prevSlide());
+        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+        
+        // Touch/Mouse events para swipe
+        this.track.addEventListener('mousedown', this.handleStart.bind(this));
+        this.track.addEventListener('touchstart', this.handleStart.bind(this));
+        this.track.addEventListener('mousemove', this.handleMove.bind(this));
+        this.track.addEventListener('touchmove', this.handleMove.bind(this));
+        this.track.addEventListener('mouseup', this.handleEnd.bind(this));
+        this.track.addEventListener('touchend', this.handleEnd.bind(this));
+        this.track.addEventListener('mouseleave', this.handleEnd.bind(this));
+        
+        // Pausar autoplay no hover
+        this.container.addEventListener('mouseenter', () => this.pauseAutoplay());
+        this.container.addEventListener('mouseleave', () => this.startAutoplay());
+        
+        // Responsive
+        window.addEventListener('resize', () => {
+            clearTimeout(this.resizeTimer);
+            this.resizeTimer = setTimeout(() => {
+                this.updateResponsive();
+                this.updateSlideWidth();
+                this.updateCarousel();
+            }, 250);
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.container.matches(':hover')) {
+                if (e.key === 'ArrowLeft') this.prevSlide();
+                if (e.key === 'ArrowRight') this.nextSlide();
+            }
+        });
+    }
+    
+    handleStart(e) {
+        this.isDragging = true;
+        this.startX = this.getEventX(e);
+        this.initialTransform = this.getCurrentTransform();
+        this.track.classList.add('dragging');
+        this.pauseAutoplay();
+    }
+    
+    handleMove(e) {
+        if (!this.isDragging) return;
+        
+        e.preventDefault();
+        this.currentX = this.getEventX(e);
+        const deltaX = this.currentX - this.startX;
+        const newTransform = this.initialTransform + deltaX;
+        
+        this.track.style.transform = `translateX(${newTransform}px)`;
+    }
+    
+    handleEnd(e) {
+        if (!this.isDragging) return;
+        
+        this.isDragging = false;
+        this.track.classList.remove('dragging');
+        
+        const deltaX = this.currentX - this.startX;
+        const threshold = this.slideWidth / 3;
+        
+        if (Math.abs(deltaX) > threshold) {
+            if (deltaX > 0) {
+                this.prevSlide();
+            } else {
+                this.nextSlide();
+            }
+        } else {
+            this.updateCarousel();
+        }
+        
+        this.startAutoplay();
+    }
+    
+    getEventX(e) {
+        return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    }
+    
+    getCurrentTransform() {
+        const transform = window.getComputedStyle(this.track).transform;
+        if (transform === 'none') return 0;
+        const matrix = transform.match(/matrix.*\((.+)\)/)[1].split(', ');
+        return parseFloat(matrix[4]) || 0;
+    }
+    
+    updateResponsive() {
+        const width = window.innerWidth;
+        let newSlidesToShow = this.options.slidesToShow;
+        
+        for (const breakpoint of this.options.responsive) {
+            if (width <= breakpoint.breakpoint) {
+                newSlidesToShow = breakpoint.settings.slidesToShow;
+                break;
+            }
+        }
+        
+        if (newSlidesToShow !== this.slidesToShow) {
+            this.slidesToShow = newSlidesToShow;
+            this.maxIndex = Math.max(0, this.totalSlides - this.slidesToShow);
+            this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
+            console.log(`📱 Responsive: ${this.slidesToShow} slides visíveis`);
+        }
+    }
+    
+    prevSlide() {
+        if (this.options.infinite) {
+            this.currentIndex--;
+            if (this.currentIndex < 0) {
+                this.currentIndex = this.maxIndex;
+            }
+        } else {
+            this.currentIndex = Math.max(0, this.currentIndex - this.options.slidesToScroll);
+        }
+        this.updateCarousel();
+    }
+    
+    nextSlide() {
+        if (this.options.infinite) {
+            this.currentIndex++;
+            if (this.currentIndex > this.maxIndex) {
+                this.currentIndex = 0;
+            }
+        } else {
+            this.currentIndex = Math.min(this.maxIndex, this.currentIndex + this.options.slidesToScroll);
+        }
+        this.updateCarousel();
+    }
+    
+    goToSlide(index) {
+        this.currentIndex = Math.max(0, Math.min(index * this.slidesToShow, this.maxIndex));
+        this.updateCarousel();
+    }
+    
+    updateCarousel() {
+        // Calcular transformação
+        const translateX = -this.currentIndex * this.slideWidth;
+        
+        // Aplicar transformação com transição suave
+        this.track.style.transition = this.isDragging ? 'none' : `transform ${this.options.speed}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+        this.track.style.transform = `translateX(${translateX}px)`;
+        
+        // Atualizar slides ativos
+        this.updateActiveSlides();
+        
+        // Atualizar indicadores
+        this.updateIndicators();
+        
+        // Atualizar botões
+        this.updateButtons();
+        
+        // Callback de mudança
+        this.onSlideChange();
+    }
+    
+    updateActiveSlides() {
+        this.allSlides.forEach((slide, index) => {
+            const isActive = index >= this.currentIndex && index < this.currentIndex + this.slidesToShow;
+            slide.classList.toggle('active', isActive);
+        });
+    }
+    
+    updateIndicators() {
+        if (!this.indicators) return;
+        
+        const activeIndicatorIndex = Math.floor(this.currentIndex / this.slidesToShow);
+        this.indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === activeIndicatorIndex);
+        });
+    }
+    
+    updateButtons() {
+        if (!this.options.infinite) {
+            if (this.prevBtn) {
+                this.prevBtn.disabled = this.currentIndex === 0;
+                this.prevBtn.style.opacity = this.currentIndex === 0 ? '0.3' : '0.8';
+            }
+            if (this.nextBtn) {
+                this.nextBtn.disabled = this.currentIndex >= this.maxIndex;
+                this.nextBtn.style.opacity = this.currentIndex >= this.maxIndex ? '0.3' : '0.8';
+            }
+        }
+    }
+    
+    startAutoplay() {
+        if (!this.options.autoplay || this.autoplayTimer) return;
+        
+        this.isPlaying = true;
+        this.autoplayTimer = setInterval(() => {
+            if (this.isPlaying && !this.isDragging) {
+                this.nextSlide();
+            }
+        }, this.options.autoplaySpeed);
+        
+        console.log('▶️ Autoplay iniciado');
+    }
+    
+    pauseAutoplay() {
+        if (this.autoplayTimer) {
+            clearInterval(this.autoplayTimer);
+            this.autoplayTimer = null;
+            this.isPlaying = false;
+            console.log('⏸️ Autoplay pausado');
+        }
+    }
+    
+    stopAutoplay() {
+        this.pauseAutoplay();
+        this.options.autoplay = false;
+    }
+    
+    onSlideChange() {
+        // Evento personalizado para quando o slide muda
+        const event = new CustomEvent('carouselChange', {
+            detail: {
+                currentIndex: this.currentIndex,
+                totalSlides: this.totalSlides,
+                slidesToShow: this.slidesToShow
+            }
+        });
+        this.container.dispatchEvent(event);
+    }
+    
+    // Métodos públicos para controle externo
+    destroy() {
+        this.pauseAutoplay();
+        // Remover event listeners se necessário
+        console.log('🗑️ Carrossel destruído');
+    }
+    
+    refresh() {
+        this.updateResponsive();
+        this.updateSlideWidth();
+        this.updateCarousel();
+        console.log('🔄 Carrossel atualizado');
     }
 }
 
-// Intersection Observer para animações - SIMPLIFICADO
+// ========================================
+// 🚀 INICIALIZAÇÃO DO CARROSSEL
+// ========================================
+
+let carousel;
+
+function initCustomCarousel() {
+    console.log('🎠 Tentando inicializar carrossel personalizado...');
+    
+    const carouselContainer = document.querySelector('.custom-carousel-wrapper');
+    if (!carouselContainer) {
+        console.error('❌ Container do carrossel não encontrado');
+        return;
+    }
+    
+    // Configurações do carrossel
+    const carouselOptions = {
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3500,
+        infinite: true,
+        speed: 600,
+        responsive: [
+            { breakpoint: 1200, settings: { slidesToShow: 4 } },
+            { breakpoint: 768, settings: { slidesToShow: 3 } },
+            { breakpoint: 480, settings: { slidesToShow: 2 } }
+        ]
+    };
+    
+    // Criar instância do carrossel
+    carousel = new CustomCarousel('.custom-carousel-wrapper', carouselOptions);
+    
+    // Event listener para mudanças
+    carouselContainer.addEventListener('carouselChange', (e) => {
+        console.log('🔄 Slide mudou:', e.detail);
+    });
+    
+    console.log('✅ Carrossel personalizado inicializado!');
+}
+
+// ========================================
+// 🎯 INTERSECTION OBSERVER PARA ANIMAÇÕES
+// ========================================
+
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -214,7 +505,10 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Inicialização quando o DOM carrega - CORRIGIDO
+// ========================================
+// 🌟 INICIALIZAÇÃO PRINCIPAL
+// ========================================
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 DOM carregado, inicializando componentes...');
     
@@ -224,30 +518,16 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
     
-    // Inicializar carrossel imediatamente quando a página carregar
-    // Se o Swiper ainda não carregou, tentar novamente em intervalos
-    let attempts = 0;
-    const maxAttempts = 10;
-    
-    function tryInitCarrossel() {
-        attempts++;
-        console.log(`Tentativa ${attempts} de inicializar carrossel...`);
-        
-        if (typeof Swiper !== 'undefined') {
-            initCarrossel();
-        } else if (attempts < maxAttempts) {
-            console.log('Swiper ainda não carregou, tentando novamente em 100ms...');
-            setTimeout(tryInitCarrossel, 100);
-        } else {
-            console.error('❌ Swiper não carregou após várias tentativas');
-        }
-    }
-    
-    // Tentar inicializar imediatamente
-    tryInitCarrossel();
+    // Inicializar carrossel personalizado
+    setTimeout(() => {
+        initCustomCarousel();
+    }, 100);
 });
 
-// Header scroll effect
+// ========================================
+// 📱 HEADER SCROLL EFFECT
+// ========================================
+
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.navigation');
     if (window.scrollY > 100) {
@@ -259,67 +539,10 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Form validation and submission (mantendo o sistema original)
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('.form form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validação básica
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const service = document.getElementById('service').value;
-            const message = document.getElementById('message').value.trim();
-            
-            if (!name || !email || !phone || !service || !message) {
-                alert('Por favor, preencha todos os campos obrigatórios.');
-                return;
-            }
-            
-            // Validação de email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Por favor, insira um email válido.');
-                return;
-            }
-            
-            // Simulação de envio
-            const submitButton = document.querySelector('.submit-button');
-            const originalText = submitButton.innerHTML;
-            
-            submitButton.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Enviando...';
-            submitButton.disabled = true;
-            
-            // Simular envio (substituir por integração real)
-            setTimeout(() => {
-                alert('Cotação solicitada com sucesso! Entraremos em contato em breve.');
-                this.reset();
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            }, 2000);
-        });
-    }
-});
+// ========================================
+// ⌨️ EFEITO DE DIGITAÇÃO NO TÍTULO
+// ========================================
 
-// Parallax effect para o hero
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallax = document.querySelector('.home::before');
-    const speed = scrolled * 0.5;
-    
-    if (parallax) {
-        parallax.style.transform = `translateY(${speed}px)`;
-    }
-});
-
-// Loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// Adicionar efeito de digitação no título principal
 function typeWriter(element, text, speed = 100) {
     let i = 0;
     element.innerHTML = '';
@@ -346,7 +569,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Lazy loading para imagens
+// ========================================
+// 🖱️ LAZY LOADING PARA IMAGENS
+// ========================================
+
 if ('IntersectionObserver' in window) {
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -366,18 +592,27 @@ if ('IntersectionObserver' in window) {
     });
 }
 
-// Adicionar efeito de hover nos cards de serviços
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
+// ========================================
+// 🎨 EFEITOS DE HOVER NOS CARDS
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Efeito de hover nos cards de serviços
+    document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
     });
 });
 
-// Scroll to top functionality
+// ========================================
+// 🔝 SCROLL TO TOP FUNCTIONALITY
+// ========================================
+
 const scrollToTopBtn = document.createElement('button');
 scrollToTopBtn.innerHTML = '<i class="bx bx-up-arrow-alt"></i>';
 scrollToTopBtn.className = 'scroll-to-top';
@@ -401,7 +636,10 @@ scrollToTopBtn.addEventListener('click', () => {
     });
 });
 
-// Adicionar animação de entrada para elementos
+// ========================================
+// 🎬 ANIMAÇÕES DE ENTRADA
+// ========================================
+
 const observeElements = document.querySelectorAll('.stat-card, .service-card');
 const elementObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
@@ -422,14 +660,41 @@ observeElements.forEach(el => {
     elementObserver.observe(el);
 });
 
+// ========================================
+// 🐛 DEBUG E UTILITÁRIOS
+// ========================================
+
 // Debug do carrossel
-window.debugCarrossel = function() {
-    console.log('🔍 Debug do Carrossel:');
-    console.log('- Swiper disponível:', typeof Swiper !== 'undefined');
-    console.log('- Container encontrado:', !!document.querySelector('.elementor-image-carousel-wrapper'));
-    console.log('- Slides encontrados:', document.querySelectorAll('.swiper-slide').length);
-    console.log('- Paginação encontrada:', !!document.querySelector('.swiper-pagination'));
+window.debugCarousel = function() {
+    console.log('🔍 Debug do Carrossel Personalizado:');
+    console.log('- Carrossel instância:', carousel);
+    console.log('- Container encontrado:', !!document.querySelector('.custom-carousel-wrapper'));
+    console.log('- Slides encontrados:', document.querySelectorAll('.carousel-slide').length);
+    console.log('- Indicadores encontrados:', document.querySelectorAll('.carousel-indicator').length);
+    
+    if (carousel) {
+        console.log('- Index atual:', carousel.currentIndex);
+        console.log('- Total de slides:', carousel.totalSlides);
+        console.log('- Slides visíveis:', carousel.slidesToShow);
+        console.log('- Autoplay ativo:', carousel.isPlaying);
+    }
 };
 
-console.log('✅ Script principal carregado com sucesso!');
-console.log('💡 Use window.debugCarrossel() no console para debug');
+// Controles globais do carrossel
+window.carouselControls = {
+    next: () => carousel?.nextSlide(),
+    prev: () => carousel?.prevSlide(),
+    pause: () => carousel?.pauseAutoplay(),
+    play: () => carousel?.startAutoplay(),
+    goTo: (index) => carousel?.goToSlide(index),
+    refresh: () => carousel?.refresh()
+};
+
+// Loading animation
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
+
+console.log('✅ Script personalizado carregado com sucesso!');
+console.log('💡 Use window.debugCarousel() no console para debug');
+console.log('🎮 Use window.carouselControls para controlar o carrossel');

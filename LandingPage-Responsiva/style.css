@@ -258,7 +258,10 @@ body {
     font-weight: 500;
 }
 
-/* Carrossel de Seguradoras */
+/* ============================================= */
+/* CARROSSEL PERSONALIZADO - JAVASCRIPT PURO    */
+/* ============================================= */
+
 .seguradoras-section {
     padding: 80px 5%;
     background: var(--white);
@@ -285,46 +288,87 @@ body {
     margin-right: auto;
 }
 
-.elementor-image-carousel-wrapper {
-    overflow: hidden;
+/* Container Principal do Carrossel */
+.custom-carousel-wrapper {
     position: relative;
-    padding: 2rem 0;
+    width: 100%;
+    margin: 2rem 0;
+    padding: 20px 60px;
 }
 
-.swiper-slide-inner {
+.custom-carousel-container {
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+    background: var(--light-gray);
+    padding: 20px 0;
+}
+
+/* Track do Carrossel */
+.custom-carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 20px;
+    padding: 0 20px;
+}
+
+/* Slides Individuais */
+.carousel-slide {
+    flex: 0 0 auto;
+    min-width: 180px;
+    max-width: 220px;
+    opacity: 0.7;
+    transform: scale(0.9);
+    transition: all 0.4s ease;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.slide-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 120px;
+    min-height: 100px;
+    height: auto;
     background: var(--white);
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    margin: 0 10px;
-    padding: 20px;
+    padding: 15px;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    cursor: pointer;
+    aspect-ratio: 3/2;
 }
 
-.swiper-slide-inner:hover {
+.slide-content:hover {
     border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     transform: translateY(-5px);
 }
 
-.swiper-slide-image {
+.slide-content img {
+    width: 100%;
+    height: 100%;
     max-width: 140px;
     max-height: 80px;
     object-fit: contain;
+    object-position: center;
     filter: grayscale(100%) opacity(0.7);
     transition: all 0.4s ease;
+    border-radius: 8px;
 }
 
-.swiper-slide:hover .swiper-slide-image {
+.carousel-slide:hover .slide-content img,
+.carousel-slide.active .slide-content img {
     filter: grayscale(0%) opacity(1);
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-.elementor-swiper-button {
+/* Botões de Navegação */
+.carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -342,42 +386,142 @@ body {
     font-size: 20px;
     box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
     transition: all 0.3s ease;
+    opacity: 0.8;
 }
 
-.elementor-swiper-button:hover {
+.carousel-btn:hover {
     background: var(--accent);
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+    opacity: 1;
 }
 
-.elementor-swiper-button-prev {
-    left: -25px;
+.carousel-btn:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
-.elementor-swiper-button-next {
-    right: -25px;
+.carousel-btn-prev {
+    left: 10px;
 }
 
-.swiper-pagination {
-    bottom: 0 !important;
-    text-align: center;
+.carousel-btn-next {
+    right: 10px;
+}
+
+.carousel-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: translateY(-50%) scale(0.9);
+}
+
+/* Indicadores */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
     margin-top: 2rem;
+    padding: 0 20px;
 }
 
-.swiper-pagination-bullet {
+.carousel-indicator {
     width: 12px;
     height: 12px;
-    background: #ccc;
-    opacity: 0.5;
-    margin: 0 5px;
-    transition: all 0.3s ease;
     border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.5;
 }
 
-.swiper-pagination-bullet-active {
+.carousel-indicator.active {
     background: var(--primary);
     opacity: 1;
     transform: scale(1.3);
+}
+
+.carousel-indicator:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+/* Animações do Carrossel */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.carousel-slide {
+    animation: slideIn 0.6s ease;
+}
+
+/* Auto-play indicator */
+.carousel-autoplay-indicator {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: rgba(30, 60, 114, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.carousel-autoplay-progress {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+    width: 0%;
+}
+
+/* Touch/Swipe Support */
+.custom-carousel-container {
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.custom-carousel-track {
+    cursor: grab;
+}
+
+.custom-carousel-track:active {
+    cursor: grabbing;
+}
+
+.custom-carousel-track.dragging {
+    transition: none;
+}
+
+/* Loading State */
+.carousel-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    color: var(--text-gray);
+    font-size: 1.1rem;
+}
+
+.carousel-loading::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    margin-right: 10px;
+    animation: spin 1s linear infinite;
 }
 
 /* Services Section */
@@ -755,7 +899,47 @@ body {
     transform: scale(1.1);
 }
 
-/* Responsive Design */
+/* ============================================= */
+/* RESPONSIVE DESIGN - CARROSSEL                 */
+/* ============================================= */
+
+/* Desktop Extra Large */
+@media (max-width: 1400px) {
+    .carousel-slide {
+        min-width: 160px;
+        max-width: 200px;
+    }
+    
+    .slide-content {
+        padding: 12px;
+        min-height: 90px;
+    }
+    
+    .slide-content img {
+        max-width: 120px;
+        max-height: 70px;
+    }
+}
+
+/* Desktop */
+@media (max-width: 1200px) {
+    .carousel-slide {
+        min-width: 140px;
+        max-width: 180px;
+    }
+    
+    .slide-content {
+        padding: 10px;
+        min-height: 85px;
+    }
+    
+    .slide-content img {
+        max-width: 110px;
+        max-height: 65px;
+    }
+}
+
+/* Tablet */
 @media (max-width: 768px) {
     .menu {
         display: flex;
@@ -824,19 +1008,47 @@ body {
         display: none;
     }
     
-    /* Carrossel responsivo */
-    .elementor-swiper-button {
-        display: none;
+    /* Carrossel Tablet */
+    .custom-carousel-wrapper {
+        padding: 20px 15px;
     }
     
-    .swiper-slide-inner {
-        margin: 0 5px;
-        height: 100px;
-        padding: 15px;
+    .custom-carousel-container {
+        padding: 15px 0;
     }
     
-    .swiper-slide-image {
-        max-width: 120px;
+    .custom-carousel-track {
+        gap: 15px;
+        padding: 0 15px;
+    }
+    
+    .carousel-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .carousel-btn-prev {
+        left: 8px;
+    }
+    
+    .carousel-btn-next {
+        right: 8px;
+    }
+    
+    .carousel-slide {
+        min-width: 120px;
+        max-width: 160px;
+    }
+    
+    .slide-content {
+        padding: 8px;
+        min-height: 80px;
+        border-radius: 10px;
+    }
+    
+    .slide-content img {
+        max-width: 100px;
         max-height: 60px;
     }
     
@@ -846,18 +1058,172 @@ body {
     
     .seguradoras-section h2 {
         font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .seguradoras-section p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
     }
 }
 
+/* Mobile Large */
 @media (max-width: 480px) {
-    .swiper-slide-inner {
-        height: 80px;
-        padding: 10px;
+    .custom-carousel-wrapper {
+        padding: 15px 5px;
     }
     
-    .swiper-slide-image {
-        max-width: 100px;
+    .custom-carousel-container {
+        padding: 10px 0;
+        border-radius: 12px;
+    }
+    
+    .custom-carousel-track {
+        gap: 10px;
+        padding: 0 10px;
+    }
+    
+    .carousel-slide {
+        min-width: 100px;
+        max-width: 130px;
+    }
+    
+    .slide-content {
+        padding: 6px;
+        min-height: 70px;
+        border-radius: 8px;
+    }
+    
+    .slide-content img {
+        max-width: 80px;
         max-height: 50px;
+    }
+    
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .carousel-btn-prev {
+        left: 5px;
+    }
+    
+    .carousel-btn-next {
+        right: 5px;
+    }
+    
+    .carousel-indicators {
+        margin-top: 1.5rem;
+        gap: 6px;
+    }
+    
+    .carousel-indicator {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .seguradoras-section h2 {
+        font-size: 1.8rem;
+    }
+    
+    .seguradoras-section p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Mobile Small */
+@media (max-width: 360px) {
+    .custom-carousel-wrapper {
+        padding: 10px 0;
+    }
+    
+    .carousel-slide {
+        min-width: 90px;
+        max-width: 110px;
+    }
+    
+    .slide-content {
+        padding: 4px;
+        min-height: 60px;
+    }
+    
+    .slide-content img {
+        max-width: 70px;
+        max-height: 45px;
+    }
+    
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+    
+    .seguradoras-section {
+        padding: 40px 3%;
+    }
+    
+    .seguradoras-section h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .carousel-slide {
+        min-width: 80px;
+        max-width: 100px;
+    }
+    
+    .slide-content {
+        min-height: 50px;
+        padding: 3px;
+    }
+    
+    .slide-content img {
+        max-width: 60px;
+        max-height: 35px;
+    }
+    
+    .seguradoras-section {
+        padding: 30px 5%;
+    }
+}
+
+/* Prevenção de overflow em imagens */
+@media (max-width: 768px) {
+    .slide-content img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+    }
+}
+
+/* Container flexível para imagens */
+.slide-content {
+    overflow: hidden;
+    position: relative;
+}
+
+.slide-content img {
+    display: block;
+    margin: 0 auto;
+    flex-shrink: 0;
+}
+
+/* Loading state responsivo */
+@media (max-width: 768px) {
+    .carousel-loading {
+        height: 100px;
+        font-size: 1rem;
+    }
+    
+    .carousel-loading::before {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
     }
 }
 
