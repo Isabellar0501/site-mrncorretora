@@ -74,31 +74,57 @@ function animateCounters() {
     });
 }
 
-// Inicialização do Carrossel de Seguradoras
+// Inicialização do Carrossel de Seguradoras - CORRIGIDO
 function initCarrossel() {
     // Verificar se o Swiper está disponível
-    if (typeof Swiper !== 'undefined') {
-        console.log('✅ Swiper encontrado, inicializando carrossel...');
-        
+    if (typeof Swiper === 'undefined') {
+        console.error('❌ Swiper não encontrado. Verifique se o arquivo swiper-bundle.min.js foi carregado.');
+        return;
+    }
+
+    console.log('✅ Swiper encontrado, inicializando carrossel...');
+    
+    // Verificar se o container existe
+    const swiperContainer = document.querySelector('.elementor-image-carousel-wrapper');
+    if (!swiperContainer) {
+        console.error('❌ Container do carrossel não encontrado');
+        return;
+    }
+
+    console.log('✅ Container encontrado, criando instância do Swiper...');
+    
+    try {
         const swiper = new Swiper('.elementor-image-carousel-wrapper', {
-            slidesPerView: 5,
+            // Configurações básicas
+            slidesPerView: 1,
             spaceBetween: 20,
             loop: true,
+            centeredSlides: false,
+            
+            // Autoplay
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
             },
+            
+            // Velocidade
             speed: 800,
+            
+            // Navegação
             navigation: {
-                nextEl: '.elementor-swiper-button-next',
-                prevEl: '.elementor-swiper-button-prev',
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
             },
+            
+            // Paginação
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
                 dynamicBullets: true,
             },
+            
+            // Responsivo
             breakpoints: {
                 320: {
                     slidesPerView: 1,
@@ -121,50 +147,54 @@ function initCarrossel() {
                     spaceBetween: 20
                 }
             },
-            // Efeitos visuais adicionais
+            
+            // Efeitos
             effect: 'slide',
             grabCursor: true,
-            centeredSlides: false,
-            slidesPerGroup: 1,
-        });
-        
-        console.log('✅ Carrossel de seguradoras inicializado com sucesso!');
-        
-        // Adicionar eventos personalizados
-        swiper.on('slideChange', function () {
-            console.log('Slide mudou para:', swiper.activeIndex);
-        });
-        
-        // Pausar autoplay ao hover no container
-        const carrosselContainer = document.querySelector('.elementor-image-carousel-wrapper');
-        if (carrosselContainer) {
-            carrosselContainer.addEventListener('mouseenter', () => {
-                swiper.autoplay.stop();
-            });
             
-            carrosselContainer.addEventListener('mouseleave', () => {
-                swiper.autoplay.start();
-            });
-        }
-        
-    } else {
-        console.error('❌ Swiper não encontrado. Verifique se está carregado na página.');
-        
-        // Fallback: mostrar todas as imagens sem carrossel
-        const wrapper = document.querySelector('.elementor-image-carousel-wrapper');
-        if (wrapper) {
-            wrapper.style.overflow = 'visible';
-            const swiperWrapper = wrapper.querySelector('.swiper-wrapper');
-            if (swiperWrapper) {
-                swiperWrapper.style.display = 'flex';
-                swiperWrapper.style.flexWrap = 'wrap';
-                swiperWrapper.style.justifyContent = 'center';
+            // Callbacks
+            on: {
+                init: function() {
+                    console.log('✅ Swiper inicializado com sucesso!');
+                },
+                slideChange: function() {
+                    console.log('Slide mudou para:', this.activeIndex);
+                }
             }
+        });
+        
+        console.log('✅ Carrossel de seguradoras criado:', swiper);
+        
+        // Pausar autoplay ao hover
+        swiperContainer.addEventListener('mouseenter', () => {
+            if (swiper.autoplay) {
+                swiper.autoplay.stop();
+            }
+        });
+        
+        swiperContainer.addEventListener('mouseleave', () => {
+            if (swiper.autoplay) {
+                swiper.autoplay.start();
+            }
+        });
+        
+        return swiper;
+        
+    } catch (error) {
+        console.error('❌ Erro ao inicializar Swiper:', error);
+        
+        // Fallback: mostrar como grid
+        const wrapper = swiperContainer.querySelector('.swiper-wrapper');
+        if (wrapper) {
+            wrapper.style.display = 'flex';
+            wrapper.style.flexWrap = 'wrap';
+            wrapper.style.justifyContent = 'center';
+            wrapper.style.gap = '1rem';
         }
     }
 }
 
-// Intersection Observer para animações
+// Intersection Observer para animações - SIMPLIFICADO
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -178,26 +208,43 @@ const observer = new IntersectionObserver((entries) => {
                 observer.unobserve(entry.target);
             }
             
-            if (entry.target.classList.contains('seguradoras-section')) {
-                // Inicializar carrossel quando a seção ficar visível
-                setTimeout(() => {
-                    initCarrossel();
-                }, 200);
-                observer.unobserve(entry.target);
-            }
-            
             // Adicionar classe de animação para outros elementos
             entry.target.classList.add('animate');
         }
     });
 }, observerOptions);
 
-// Observar seções para animações
+// Inicialização quando o DOM carrega - CORRIGIDO
 document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.stats, .services, .about, .seguradoras-section');
+    console.log('🚀 DOM carregado, inicializando componentes...');
+    
+    // Observar seções para animações
+    const sections = document.querySelectorAll('.stats, .services, .about');
     sections.forEach(section => {
         observer.observe(section);
     });
+    
+    // Inicializar carrossel imediatamente quando a página carregar
+    // Se o Swiper ainda não carregou, tentar novamente em intervalos
+    let attempts = 0;
+    const maxAttempts = 10;
+    
+    function tryInitCarrossel() {
+        attempts++;
+        console.log(`Tentativa ${attempts} de inicializar carrossel...`);
+        
+        if (typeof Swiper !== 'undefined') {
+            initCarrossel();
+        } else if (attempts < maxAttempts) {
+            console.log('Swiper ainda não carregou, tentando novamente em 100ms...');
+            setTimeout(tryInitCarrossel, 100);
+        } else {
+            console.error('❌ Swiper não carregou após várias tentativas');
+        }
+    }
+    
+    // Tentar inicializar imediatamente
+    tryInitCarrossel();
 });
 
 // Header scroll effect
@@ -213,42 +260,47 @@ window.addEventListener('scroll', () => {
 });
 
 // Form validation and submission (mantendo o sistema original)
-document.querySelector('.form form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Validação básica
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const service = document.getElementById('service').value;
-    const message = document.getElementById('message').value.trim();
-    
-    if (!name || !email || !phone || !service || !message) {
-        alert('Por favor, preencha todos os campos obrigatórios.');
-        return;
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.form form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validação básica
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !email || !phone || !service || !message) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+            
+            // Validação de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor, insira um email válido.');
+                return;
+            }
+            
+            // Simulação de envio
+            const submitButton = document.querySelector('.submit-button');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Enviando...';
+            submitButton.disabled = true;
+            
+            // Simular envio (substituir por integração real)
+            setTimeout(() => {
+                alert('Cotação solicitada com sucesso! Entraremos em contato em breve.');
+                this.reset();
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }, 2000);
+        });
     }
-    
-    // Validação de email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Por favor, insira um email válido.');
-        return;
-    }
-    
-    // Simulação de envio
-    const submitButton = document.querySelector('.submit-button');
-    const originalText = submitButton.innerHTML;
-    
-    submitButton.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Enviando...';
-    submitButton.disabled = true;
-    
-    // Simular envio (substituir por integração real)
-    setTimeout(() => {
-        alert('Cotação solicitada com sucesso! Entraremos em contato em breve.');
-        this.reset();
-        submitButton.innerHTML = originalText;
-        submitButton.disabled = false;
-    }, 2000);
 });
 
 // Parallax effect para o hero
@@ -376,8 +428,8 @@ window.debugCarrossel = function() {
     console.log('- Swiper disponível:', typeof Swiper !== 'undefined');
     console.log('- Container encontrado:', !!document.querySelector('.elementor-image-carousel-wrapper'));
     console.log('- Slides encontrados:', document.querySelectorAll('.swiper-slide').length);
-    console.log('- Botões encontrados:', document.querySelectorAll('.elementor-swiper-button').length);
+    console.log('- Paginação encontrada:', !!document.querySelector('.swiper-pagination'));
 };
 
 console.log('✅ Script principal carregado com sucesso!');
-console.log('💡 Use window.debugCarrossel() para debug do carrossel');
+console.log('💡 Use window.debugCarrossel() no console para debug');
