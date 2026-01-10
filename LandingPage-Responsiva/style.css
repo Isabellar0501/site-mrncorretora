@@ -701,30 +701,7 @@ body {
 
 /* Scroll Hint */
 .hint {
-    position: fixed;
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1000;
-}
-
-.hint i {
-    font-size: 1.5rem;
-    color: var(--accent);
-    opacity: 0.7;
-}
-
-.hint::after {
-    content: "Scroll";
-    position: absolute;
-    right: 2rem;
-    font-size: 0.9rem;
-    color: var(--accent);
-    font-weight: 600;
-    opacity: 0.7;
+    display: none;
 }
 
 /* Scroll to Top Button */
@@ -892,4 +869,347 @@ body.loaded {
     opacity: 1;
     transform: translateY(0);
     transition: all 0.6s ease;
+}
+
+/* WhatsApp Widget */
+.wa-widget {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Botão FAB Flutuante */
+.wa-fab {
+  width: 64px;
+  height: 64px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4),
+              0 8px 24px rgba(0, 0, 0, 0.15);
+  display: grid;
+  place-items: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de pulse no botão */
+.wa-fab::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
+.wa-fab:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.5),
+              0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.wa-fab:active {
+  transform: scale(0.95);
+}
+
+.wa-fab svg {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.wa-fab svg path {
+  fill: #fff;
+}
+
+/* Painel do WhatsApp */
+.wa-panel {
+  position: absolute;
+  right: 0;
+  bottom: 80px;
+  width: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
+              0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: scale(0.8) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: bottom right;
+}
+
+.wa-widget.is-open .wa-panel {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Header com gradiente */
+.wa-header {
+  background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+  color: #fff;
+  padding: 16px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito decorativo no header */
+.wa-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.wa-title {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Avatar do WhatsApp */
+.wa-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.wa-avatar svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  color: white;
+}
+
+.wa-avatar svg path {
+  fill: white;
+}
+
+.wa-badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2cff77;
+  box-shadow: 0 0 0 2px rgba(44, 255, 119, 0.2);
+  animation: blink 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.wa-info {
+  flex: 1;
+}
+
+.wa-name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+
+.wa-sub {
+  font-size: 12px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wa-close {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.wa-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(90deg);
+}
+
+/* Corpo com papel de parede do WhatsApp */
+.wa-body {
+  padding: 20px 14px;
+  min-height: 120px;
+  background-color: #0a1014;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Papel de parede personalizado - SUBSTITUA A URL ABAIXO */
+.wa-body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Cole a URL da sua imagem aqui: */
+  background-image: url("assets/whatswall.jpg");
+  /* Ajuste estas propriedades conforme necessário: */
+  background-size: cover;        /* ou 'contain', 'auto', '100% 100%' */
+  background-position: center;    /* ou 'top', 'bottom', 'left', 'right' */
+  background-repeat: no-repeat;   /* ou 'repeat', 'repeat-x', 'repeat-y' */
+  opacity: 0.8;                  /* Ajuste a opacidade (0.0 a 1.0) */
+  pointer-events: none;
+}
+
+.wa-bubble {
+  display: inline-block;
+  background: #fff;
+  border-radius: 8px 8px 8px 0;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #303030;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-width: 85%;
+  line-height: 1.5;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wa-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 12px 12px;
+  border-color: transparent transparent #fff transparent;
+}
+
+.wa-bubble-time {
+  font-size: 11px;
+  color: #667781;
+  margin-top: 4px;
+  text-align: right;
+  opacity: 0.7;
+}
+
+/* Footer */
+.wa-footer {
+  padding: 14px;
+  background: #f0f2f5;
+  border-top: 1px solid #e9edef;
+}
+
+.wa-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+}
+
+.wa-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.wa-cta:active {
+  transform: translateY(0);
+}
+
+.wa-cta svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+  color: white;
+}
+
+.wa-cta svg path {
+  fill: white;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .wa-widget {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .wa-panel {
+    width: calc(100vw - 32px);
+    max-width: 340px;
+  }
+
+  .wa-fab {
+    width: 56px;
+    height: 56px;
+  }
+
+  .wa-fab svg {
+    width: 28px;
+    height: 28px;
+  }
 }

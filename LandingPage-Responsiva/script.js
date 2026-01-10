@@ -73,3 +73,45 @@ function animateCounters() {
         }
     });
 }
+
+    (function () {
+    const waWidget = document.getElementById("waWidget");
+    const waFab = document.getElementById("waFab");
+    const waPanel = document.getElementById("waPanel");
+    const waClose = document.getElementById("waClose");
+    const waCta = document.getElementById("waCta");
+
+    // Coloque seu link aqui (troque o número e a mensagem):
+    // Exemplo: https://wa.me/5511999999999?text=Oi%2C%20precisa%20de%20ajuda%3F
+    const WHATSAPP_LINK = "https://wa.me/5511954234299?text=Oi%2C%20precisa%20de%20ajuda%3F";
+
+    waCta.href = WHATSAPP_LINK;
+
+    function openWidget() {
+        waWidget.classList.add("is-open");
+        waPanel.setAttribute("aria-hidden", "false");
+    }
+
+    function closeWidget() {
+        waWidget.classList.remove("is-open");
+        waPanel.setAttribute("aria-hidden", "true");
+    }
+
+    waFab.addEventListener("click", () => {
+        if (waWidget.classList.contains("is-open")) closeWidget();
+        else openWidget();
+    });
+
+    waClose.addEventListener("click", closeWidget);
+
+    // Fechar clicando fora
+    document.addEventListener("click", (e) => {
+        const clickedInside = waWidget.contains(e.target);
+        if (!clickedInside) closeWidget();
+    });
+
+    // ESC fecha
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeWidget();
+    });
+    })();
