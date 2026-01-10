@@ -83,7 +83,7 @@ function animateCounters() {
 
     // Coloque seu link aqui (troque o número e a mensagem):
     // Exemplo: https://wa.me/5511999999999?text=Oi%2C%20precisa%20de%20ajuda%3F
-    const WHATSAPP_LINK = "https://wa.me/5511954234299?text=Oi%2C%20precisa%20de%20ajuda%3F";
+    const WHATSAPP_LINK = "https://wa.me/5511959861723?text=Oi%2C%20precisa%20de%20ajuda%3F";
 
     waCta.href = WHATSAPP_LINK;
 
