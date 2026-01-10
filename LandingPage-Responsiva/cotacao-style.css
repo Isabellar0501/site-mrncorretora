@@ -1,0 +1,645 @@
+/* Cotação Page Specific Styles */
+
+/* Hero Section */
+.cotacao-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 5% 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.cotacao-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+.cotacao-hero-content {
+    max-width: 800px;
+    text-align: center;
+    z-index: 2;
+}
+
+.cotacao-hero-content .text-h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.cotacao-hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.cotacao-hero-content p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease 0.6s both;
+}
+
+/* Widgets Section */
+.cotacao-widgets {
+    padding: 80px 5%;
+    background: var(--light-gray);
+}
+
+.container-widgets {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.container-widgets h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.container-widgets .subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    margin-bottom: 3rem;
+}
+
+.widgets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    transition: all 0.5s ease;
+}
+
+.widgets-grid.has-active {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Widget Card */
+.widget-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    opacity: 1;
+    max-height: 1000px;
+    overflow: visible;
+}
+
+.widget-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    border-color: var(--accent);
+}
+
+/* Quando há um card ativo, esconder os outros */
+.widgets-grid.has-active .widget-card:not(.active) {
+    opacity: 0;
+    max-height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: scale(0.8);
+}
+
+/* Card ativo ocupa largura total */
+.widget-card.active {
+    width: 100%;
+    max-height: none;
+    border-color: var(--accent);
+    box-shadow: 0 20px 60px rgba(0, 65, 131, 0.2);
+}
+
+/* Quando ativo, reorganizar o layout do card */
+.widget-card.active {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+        "icon title button"
+        "desc desc desc"
+        "content content content";
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.widget-card.active .widget-icon {
+    grid-area: icon;
+    margin-bottom: 0;
+}
+
+.widget-card.active h3 {
+    grid-area: title;
+    margin-bottom: 0;
+}
+
+.widget-card.active > p {
+    grid-area: desc;
+    margin-bottom: 0;
+}
+
+.widget-card.active .widget-btn {
+    grid-area: button;
+    margin-top: 0;
+    width: auto;
+    min-width: 200px;
+}
+
+.widget-card.active .widget-content {
+    grid-area: content;
+}
+
+.widget-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    color: var(--white);
+    box-shadow: 0 10px 25px rgba(30, 60, 114, 0.3);
+}
+
+.widget-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.widget-card > p {
+    color: var(--text-gray);
+    margin-bottom: auto;
+    font-size: 1rem;
+    flex-grow: 1;
+}
+
+.widget-btn {
+    width: 100%;
+    padding: 15px 20px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.widget-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 65, 131, 0.3);
+}
+
+.widget-btn i {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.widget-card.active .widget-btn {
+    background: var(--accent);
+}
+
+.widget-card.active .widget-btn i {
+    transform: rotate(180deg);
+}
+
+/* Widget Content */
+.widget-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.5s ease;
+    margin-top: 0;
+}
+
+.widget-card.active .widget-content {
+    max-height: 10000px;
+    opacity: 1;
+    margin-top: 2rem;
+    animation: slideDown 0.5s ease;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+/* Header ocupa largura total */
+.widget-card.active .widget-content .content-header {
+    grid-column: 1 / -1;
+}
+
+/* Actions ocupam largura total */
+.widget-card.active .widget-content .widget-actions {
+    grid-column: 1 / -1;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.content-header i {
+    font-size: 2rem;
+}
+
+.content-header h4 {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+/* Info Section */
+.info-section {
+    background: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--accent);
+}
+
+.info-section h5 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-section h5 i {
+    font-size: 1.3rem;
+    color: var(--accent);
+}
+
+.info-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-section ul li {
+    padding: 0.6rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+.info-section ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.info-section.highlight {
+    background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(0, 65, 131, 0.05) 100%);
+    border-left-color: var(--primary);
+    border-width: 4px;
+}
+
+.info-section.highlight h5 {
+    color: var(--accent);
+}
+
+/* Info Box */
+.info-box {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.info-box i {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.info-box.warning {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    color: #856404;
+}
+
+.info-box.warning i {
+    color: #ffc107;
+}
+
+.info-box strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.info-box p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Widget Actions */
+.widget-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.widget-actions a {
+    flex: 1;
+    max-width: 300px;
+    padding: 15px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: var(--white);
+}
+
+.btn-whatsapp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+.widget-actions i {
+    font-size: 1.3rem;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 5%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--white);
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    padding: 18px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    min-width: 250px;
+    justify-content: center;
+}
+
+.cta-btn.primary {
+    background: var(--white);
+    color: var(--primary);
+}
+
+.cta-btn.primary:hover {
+    background: var(--light-gray);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.cta-btn.secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.cta-btn.secondary:hover {
+    background: var(--white);
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.cta-btn i {
+    font-size: 1.3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cotacao-hero {
+        min-height: 50vh;
+        padding: 100px 5% 50px;
+    }
+
+    .cotacao-hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .cotacao-hero-content p {
+        font-size: 1rem;
+    }
+
+    .container-widgets h2 {
+        font-size: 2rem;
+    }
+
+    .widgets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .widget-card h3 {
+        font-size: 1.5rem;
+    }
+
+    /* Layout do card ativo em mobile */
+    .widget-card.active {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "icon"
+            "title"
+            "desc"
+            "button"
+            "content";
+    }
+
+    .widget-card.active .widget-icon {
+        justify-self: center;
+    }
+
+    .widget-card.active h3 {
+        text-align: center;
+    }
+
+    .widget-card.active > p {
+        text-align: center;
+    }
+
+    .widget-card.active .widget-btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* Widget content em coluna única no mobile */
+    .widget-card.active .widget-content {
+        grid-template-columns: 1fr;
+    }
+
+    .widget-actions {
+        flex-direction: column;
+    }
+
+    .widget-actions a {
+        width: 100%;
+        max-width: none;
+    }
+
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+
+    .cta-content p {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cotacao-hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .widget-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .content-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .info-section {
+        padding: 1rem;
+    }
+
+    .info-box {
+        flex-direction: column;
+    }
+}
+
+/* Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Print Styles */
+@media print {
+    .navigation,
+    .wa-widget,
+    .widget-btn,
+    .widget-actions,
+    .cta-section,
+    footer {
+        display: none;
+    }
+
+    .widget-content {
+        max-height: none !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+
+    .widget-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}

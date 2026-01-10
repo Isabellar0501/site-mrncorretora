@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cotacao-style.css">
+    <link rel="icon" href="assets/favicon-mrn-transparent.ico" type="image/x-icon">
+    <title>Como Cotar Seguros - MRN Corretora</title>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <a href="index.html" class="logo">
+                <i class='bx bx-shield-check'></i>
+                <img src="assets/mrnlogocorretora.png">
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#home">Home</a></li>
+                <li class="nav-item"><a href="index.html#aboutUsAnchor">Sobre Nós</a></li>
+                <li class="nav-item"><a href="index.html#servicos">Serviços</a></li>
+                <li class="nav-item"><a href="index.html#formAnchor">Contato</a></li>
+                <li class="nav-item"><a href="cotacao.html" style="background: var(--accent); color: white; padding: 10px 20px; border-radius: 25px;">Cotação</a></li>
+            </ul>
+            <div class="menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="cotacao-hero">
+            <div class="cotacao-hero-content">
+                <h4 class="text-h4">Guia de Cotação</h4>
+                <h1>Como Cotar Seu Seguro</h1>
+                <p>Escolha o tipo de seguro abaixo e descubra quais informações você precisa para fazer sua cotação de forma rápida e eficiente.</p>
+            </div>
+        </section>
+
+        <!-- Widgets de Cotação -->
+        <section class="cotacao-widgets">
+            <div class="container-widgets">
+                <h2>Selecione o Tipo de Seguro</h2>
+                <p class="subtitle">Clique nos cards abaixo para ver as informações necessárias</p>
+
+                <div class="widgets-grid">
+                    <!-- Seguro Auto -->
+                    <div class="widget-card" data-type="auto">
+                        <div class="widget-icon">
+                            <i class='bx bx-car'></i>
+                        </div>
+                        <h3>Seguro Auto</h3>
+                        <p>Proteção completa para seu veículo</p>
+                        <button class="widget-btn" onclick="toggleWidget('auto')">
+                            <span class="btn-text">Ver Informações</span>
+                            <i class='bx bx-chevron-down'></i>
+                        </button>
+
+                        <div class="widget-content" id="widget-auto">
+                            <div class="content-header">
+                                <i class='bx bx-info-circle'></i>
+                                <h4>Documentos e Informações Necessárias</h4>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-file-blank'></i> Documentos do Veículo</h5>
+                                <ul>
+                                    <li>CRLV (Certificado de Registro e Licenciamento do Veículo) atualizado</li>
+                                    <li>Número do chassi do veículo</li>
+                                    <li>Placa do veículo</li>
+                                    <li>Renavam</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-user'></i> Dados do Proprietário</h5>
+                                <ul>
+                                    <li>CPF ou CNPJ</li>
+                                    <li>CNH (Carteira Nacional de Habilitação) válida</li>
+                                    <li>Comprovante de residência atualizado</li>
+                                    <li>Data de nascimento</li>
+                                    <li>Estado civil</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-car'></i> Informações do Veículo</h5>
+                                <ul>
+                                    <li>Marca e modelo completo</li>
+                                    <li>Ano de fabricação e modelo</li>
+                                    <li>Quilometragem atual</li>
+                                    <li>Tipo de combustível</li>
+                                    <li>CEP onde o veículo fica estacionado (pernoite)</li>
+                                    <li>Se possui garagem fechada</li>
+                                    <li>Uso do veículo (particular, trabalho, etc.)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-shield-check'></i> Informações Adicionais</h5>
+                                <ul>
+                                    <li>Possui rastreador ou alarme?</li>
+                                    <li>Existem outros condutores? (Nome, CPF, CNH e data de nascimento)</li>
+                                    <li>Já teve sinistros anteriores?</li>
+                                    <li>Possui seguro anterior? (enviar apólice)</li>
+                                </ul>
+                            </div>
+
+                            <div class="widget-actions">
+                                <a href="index.html#formAnchor" class="btn-primary">
+                                    <i class='bx bx-message-square-dots'></i>
+                                    Solicitar Cotação
+                                </a>
+                                <a href="https://wa.me/5511954234299?text=Olá!%20Gostaria%20de%20cotar%20um%20Seguro%20Auto" target="_blank" class="btn-whatsapp">
+                                    <i class='bx bxl-whatsapp'></i>
+                                    Cotar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguro Residencial -->
+                    <div class="widget-card" data-type="residencial">
+                        <div class="widget-icon">
+                            <i class='bx bx-home-heart'></i>
+                        </div>
+                        <h3>Seguro Residencial</h3>
+                        <p>Proteção para sua casa e família</p>
+                        <button class="widget-btn" onclick="toggleWidget('residencial')">
+                            <span class="btn-text">Ver Informações</span>
+                            <i class='bx bx-chevron-down'></i>
+                        </button>
+
+                        <div class="widget-content" id="widget-residencial">
+                            <div class="content-header">
+                                <i class='bx bx-info-circle'></i>
+                                <h4>Documentos e Informações Necessárias</h4>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-user'></i> Dados do Proprietário</h5>
+                                <ul>
+                                    <li>CPF ou CNPJ</li>
+                                    <li>RG ou CNH</li>
+                                    <li>Comprovante de residência atualizado</li>
+                                    <li>Data de nascimento</li>
+                                    <li>Profissão</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-home'></i> Informações do Imóvel</h5>
+                                <ul>
+                                    <li>Endereço completo com CEP</li>
+                                    <li>Tipo de imóvel (casa, apartamento, cobertura)</li>
+                                    <li>Área construída em m²</li>
+                                    <li>Número de cômodos</li>
+                                    <li>Ano de construção do imóvel</li>
+                                    <li>Padrão de acabamento (simples, médio, alto)</li>
+                                    <li>Tipo de ocupação (próprio, alugado)</li>
+                                    <li>Se o imóvel fica em condomínio fechado</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-shield'></i> Segurança do Imóvel</h5>
+                                <ul>
+                                    <li>Possui portaria 24h?</li>
+                                    <li>Tem sistema de alarme?</li>
+                                    <li>Tem câmeras de segurança?</li>
+                                    <li>Possui grades ou cercas elétricas?</li>
+                                    <li>Tem portão eletrônico?</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-dollar-circle'></i> Coberturas Desejadas</h5>
+                                <ul>
+                                    <li>Valor estimado dos bens a serem segurados</li>
+                                    <li>Cobertura contra incêndio</li>
+                                    <li>Cobertura contra roubo</li>
+                                    <li>Danos elétricos</li>
+                                    <li>Responsabilidade civil</li>
+                                    <li>Vendaval, granizo e outros fenômenos naturais</li>
+                                    <li>Assistência 24h (encanador, eletricista, chaveiro)</li>
+                                </ul>
+                            </div>
+
+                            <div class="widget-actions">
+                                <a href="index.html#formAnchor" class="btn-primary">
+                                    <i class='bx bx-message-square-dots'></i>
+                                    Solicitar Cotação
+                                </a>
+                                <a href="https://wa.me/5511954234299?text=Olá!%20Gostaria%20de%20cotar%20um%20Seguro%20Residencial" target="_blank" class="btn-whatsapp">
+                                    <i class='bx bxl-whatsapp'></i>
+                                    Cotar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguro Moto -->
+                    <div class="widget-card" data-type="moto">
+                        <div class="widget-icon">
+                            <i class='bx bx-cycling'></i>
+                        </div>
+                        <h3>Seguro Moto</h3>
+                        <p>Proteção completa para sua motocicleta</p>
+                        <button class="widget-btn" onclick="toggleWidget('moto')">
+                            <span class="btn-text">Ver Informações</span>
+                            <i class='bx bx-chevron-down'></i>
+                        </button>
+
+                        <div class="widget-content" id="widget-moto">
+                            <div class="content-header">
+                                <i class='bx bx-info-circle'></i>
+                                <h4>Documentos e Informações Necessárias</h4>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-file-blank'></i> Documentos da Moto</h5>
+                                <ul>
+                                    <li>CRLV (Certificado de Registro e Licenciamento) atualizado</li>
+                                    <li>Número do chassi da moto</li>
+                                    <li>Placa da motocicleta</li>
+                                    <li>Renavam</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-user'></i> Dados do Proprietário</h5>
+                                <ul>
+                                    <li>CPF ou CNPJ</li>
+                                    <li>CNH (Carteira Nacional de Habilitação) válida categoria A</li>
+                                    <li>Comprovante de residência atualizado</li>
+                                    <li>Data de nascimento</li>
+                                    <li>Estado civil</li>
+                                    <li>Profissão</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-cycling'></i> Informações da Motocicleta</h5>
+                                <ul>
+                                    <li>Marca e modelo completo</li>
+                                    <li>Ano de fabricação e modelo</li>
+                                    <li>Cilindradas (125cc, 160cc, etc.)</li>
+                                    <li>Quilometragem atual</li>
+                                    <li>Tipo de combustível</li>
+                                    <li>CEP onde a moto fica estacionada (pernoite)</li>
+                                    <li>Se possui garagem fechada</li>
+                                    <li>Uso da moto (lazer, trabalho, delivery)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-shield-check'></i> Informações Adicionais</h5>
+                                <ul>
+                                    <li>Possui rastreador ou alarme?</li>
+                                    <li>Existem outros condutores? (Nome, CPF, CNH e data de nascimento)</li>
+                                    <li>Já teve sinistros anteriores?</li>
+                                    <li>Possui seguro anterior? (enviar apólice)</li>
+                                    <li>A moto possui modificações ou acessórios especiais?</li>
+                                    <li>Utiliza a moto para trabalhar? (motoboy, entregador)</li>
+                                </ul>
+                            </div>
+
+                            <div class="widget-actions">
+                                <a href="index.html#formAnchor" class="btn-primary">
+                                    <i class='bx bx-message-square-dots'></i>
+                                    Solicitar Cotação
+                                </a>
+                                <a href="https://wa.me/5511954234299?text=Olá!%20Gostaria%20de%20cotar%20um%20Seguro%20Moto" target="_blank" class="btn-whatsapp">
+                                    <i class='bx bxl-whatsapp'></i>
+                                    Cotar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguro Vida -->
+                    <div class="widget-card" data-type="vida">
+                        <div class="widget-icon">
+                            <i class='bx bx-heart'></i>
+                        </div>
+                        <h3>Seguro Vida</h3>
+                        <p>Proteção financeira para sua família</p>
+                        <button class="widget-btn" onclick="toggleWidget('vida')">
+                            <span class="btn-text">Ver Informações</span>
+                            <i class='bx bx-chevron-down'></i>
+                        </button>
+
+                        <div class="widget-content" id="widget-vida">
+                            <div class="content-header">
+                                <i class='bx bx-info-circle'></i>
+                                <h4>Documentos e Informações Necessárias</h4>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-user'></i> Dados Pessoais</h5>
+                                <ul>
+                                    <li>CPF</li>
+                                    <li>RG ou CNH</li>
+                                    <li>Comprovante de residência atualizado</li>
+                                    <li>Data de nascimento</li>
+                                    <li>Estado civil</li>
+                                    <li>Nome completo da mãe</li>
+                                    <li>E-mail e telefone de contato</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-briefcase'></i> Informações Profissionais</h5>
+                                <ul>
+                                    <li>Profissão detalhada</li>
+                                    <li>Renda mensal</li>
+                                    <li>Empresa onde trabalha</li>
+                                    <li>Tipo de atividade profissional</li>
+                                    <li>Se trabalha em altura ou com riscos</li>
+                                    <li>Se viaja frequentemente</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-heart-circle'></i> Informações de Saúde</h5>
+                                <ul>
+                                    <li>Peso e altura</li>
+                                    <li>Se é fumante ou ex-fumante</li>
+                                    <li>Doenças preexistentes (diabetes, hipertensão, etc.)</li>
+                                    <li>Cirurgias realizadas nos últimos 5 anos</li>
+                                    <li>Medicamentos de uso contínuo</li>
+                                    <li>Histórico familiar de doenças graves</li>
+                                    <li>Se pratica esportes radicais</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-group'></i> Beneficiários</h5>
+                                <ul>
+                                    <li>Nome completo dos beneficiários</li>
+                                    <li>CPF de cada beneficiário</li>
+                                    <li>Data de nascimento</li>
+                                    <li>Grau de parentesco</li>
+                                    <li>Percentual da indenização para cada um</li>
+                                    <li>Telefone e e-mail dos beneficiários</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-shield-check'></i> Coberturas Disponíveis</h5>
+                                <ul>
+                                    <li>Morte natural ou acidental</li>
+                                    <li>Invalidez permanente total ou parcial por acidente (IPA)</li>
+                                    <li>Doenças graves (câncer, AVC, infarto)</li>
+                                    <li>Diária de internação hospitalar (DIH)</li>
+                                    <li>Assistência funeral</li>
+                                    <li>Renda por incapacidade temporária</li>
+                                    <li>Antecipação por doença terminal</li>
+                                    <li>Sorteios mensais (algumas seguradoras)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-dollar-circle'></i> Informações sobre o Capital Segurado</h5>
+                                <ul>
+                                    <li>Qual o valor de indenização desejado?</li>
+                                    <li>Considere suas despesas mensais e dívidas</li>
+                                    <li>Pense no padrão de vida da sua família</li>
+                                    <li>Calcule quanto tempo sua família precisaria do apoio financeiro</li>
+                                    <li>Inclua custos futuros (educação dos filhos, etc.)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box warning">
+                                <i class='bx bx-error-circle'></i>
+                                <div>
+                                    <strong>Importante:</strong>
+                                    <p>Para capitais acima de R$ 500.000, pode ser necessário realizar exames médicos. Declarações de saúde devem ser prestadas com veracidade para garantir o pagamento da indenização em caso de sinistro.</p>
+                                </div>
+                            </div>
+
+                            <div class="widget-actions">
+                                <a href="index.html#formAnchor" class="btn-primary">
+                                    <i class='bx bx-message-square-dots'></i>
+                                    Solicitar Cotação
+                                </a>
+                                <a href="https://wa.me/5511954234299?text=Olá!%20Gostaria%20de%20cotar%20um%20Seguro%20de%20Vida" target="_blank" class="btn-whatsapp">
+                                    <i class='bx bxl-whatsapp'></i>
+                                    Cotar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguro Empresarial -->
+                    <div class="widget-card" data-type="empresarial">
+                        <div class="widget-icon">
+                            <i class='bx bx-briefcase'></i>
+                        </div>
+                        <h3>Seguro Empresarial</h3>
+                        <p>Proteção completa para seu negócio</p>
+                        <button class="widget-btn" onclick="toggleWidget('empresarial')">
+                            <span class="btn-text">Ver Informações</span>
+                            <i class='bx bx-chevron-down'></i>
+                        </button>
+
+                        <div class="widget-content" id="widget-empresarial">
+                            <div class="content-header">
+                                <i class='bx bx-info-circle'></i>
+                                <h4>Documentos e Informações Necessárias</h4>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-building'></i> Dados da Empresa</h5>
+                                <ul>
+                                    <li>CNPJ da empresa</li>
+                                    <li>Razão social e nome fantasia</li>
+                                    <li>Endereço completo do estabelecimento</li>
+                                    <li>CEP e localização exata</li>
+                                    <li>Contrato social ou última alteração contratual</li>
+                                    <li>Inscrição estadual e municipal</li>
+                                    <li>Cartão CNPJ atualizado</li>
+                                    <li>Data de fundação da empresa</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-store'></i> Informações do Estabelecimento</h5>
+                                <ul>
+                                    <li>Ramo de atividade (CNAE)</li>
+                                    <li>Tipo de imóvel (próprio, alugado)</li>
+                                    <li>Área total em m² (construída e terreno)</li>
+                                    <li>Número de pavimentos</li>
+                                    <li>Tipo de construção (alvenaria, mista, madeira)</li>
+                                    <li>Ano de construção do prédio</li>
+                                    <li>Ocupação do imóvel (uso exclusivo ou compartilhado)</li>
+                                    <li>Se fica em shopping, galeria ou centro comercial</li>
+                                    <li>Horário de funcionamento</li>
+                                    <li>Número de funcionários</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-shield'></i> Segurança do Estabelecimento</h5>
+                                <ul>
+                                    <li>Possui alarme monitorado?</li>
+                                    <li>Tem sistema de câmeras (CFTV)?</li>
+                                    <li>Possui vigilância ou segurança 24h?</li>
+                                    <li>Tipo de portas e janelas (grades, portas de aço)</li>
+                                    <li>Sistema anti-incêndio (extintores, sprinklers, hidrantes)</li>
+                                    <li>Saídas de emergência</li>
+                                    <li>Cofre para valores? (especificar tipo e capacidade)</li>
+                                    <li>Vizinhança (se há empresas de risco próximas)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-package'></i> Patrimônio a Ser Segurado</h5>
+                                <ul>
+                                    <li>Valor estimado do imóvel (se próprio)</li>
+                                    <li>Valor de mercadorias em estoque</li>
+                                    <li>Valor de equipamentos e máquinas</li>
+                                    <li>Valor de móveis e utensílios</li>
+                                    <li>Equipamentos eletrônicos (computadores, servidores)</li>
+                                    <li>Instalações (ar condicionado, elétrica, hidráulica)</li>
+                                    <li>Benfeitorias em imóvel de terceiros</li>
+                                    <li>Inventário detalhado dos principais bens</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-user-check'></i> Informações do Responsável</h5>
+                                <ul>
+                                    <li>Nome completo do sócio/proprietário</li>
+                                    <li>CPF e RG</li>
+                                    <li>Data de nascimento</li>
+                                    <li>Endereço residencial</li>
+                                    <li>Telefone e e-mail de contato</li>
+                                    <li>Percentual de participação na empresa</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-shield-check'></i> Coberturas Disponíveis</h5>
+                                <ul>
+                                    <li>Incêndio, raio e explosão</li>
+                                    <li>Roubo e furto qualificado de bens</li>
+                                    <li>Quebra de vidros, anúncios e letreiros</li>
+                                    <li>Danos elétricos</li>
+                                    <li>Vendaval, granizo e fumaça</li>
+                                    <li>Responsabilidade civil (danos a terceiros)</li>
+                                    <li>Perda ou pagamento de aluguel</li>
+                                    <li>Tumultos, greves e lockout</li>
+                                    <li>Impacto de veículos</li>
+                                    <li>Lucros cessantes (interrupção do negócio)</li>
+                                    <li>Equipamentos eletrônicos</li>
+                                    <li>Roubo de valores em trânsito</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-plus-medical'></i> Coberturas Adicionais</h5>
+                                <ul>
+                                    <li>Responsabilidade civil profissional</li>
+                                    <li>Responsabilidade civil de produtos</li>
+                                    <li>Responsabilidade civil empregador</li>
+                                    <li>Responsabilidade civil ambiental</li>
+                                    <li>Quebra de máquinas</li>
+                                    <li>Riscos de engenharia (para obras)</li>
+                                    <li>Transporte de mercadorias</li>
+                                    <li>Fidelidade de empregados</li>
+                                    <li>Assistência 24h (vidraceiro, chaveiro, eletricista)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-file-blank'></i> Documentos Complementares</h5>
+                                <ul>
+                                    <li>Fotos externas e internas do estabelecimento</li>
+                                    <li>Laudo do corpo de bombeiros (AVCB)</li>
+                                    <li>Última apólice de seguro (se houver)</li>
+                                    <li>Histórico de sinistros dos últimos 3 anos</li>
+                                    <li>Faturamento médio mensal/anual</li>
+                                    <li>Folha de pagamento (para RC empregador)</li>
+                                    <li>Certidões negativas (federal, estadual, municipal)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box warning">
+                                <i class='bx bx-error-circle'></i>
+                                <div>
+                                    <strong>Importante:</strong>
+                                    <p>Para empresas de alto risco (postos de gasolina, fábricas químicas, etc.) ou patrimônios elevados, pode ser necessária vistoria prévia e documentação adicional. Algumas atividades podem ter restrições ou necessitar de seguradoras especializadas.</p>
+                                </div>
+                            </div>
+
+                            <div class="widget-actions">
+                                <a href="index.html#formAnchor" class="btn-primary">
+                                    <i class='bx bx-message-square-dots'></i>
+                                    Solicitar Cotação
+                                </a>
+                                <a href="https://wa.me/5511954234299?text=Olá!%20Gostaria%20de%20cotar%20um%20Seguro%20Empresarial" target="_blank" class="btn-whatsapp">
+                                    <i class='bx bxl-whatsapp'></i>
+                                    Cotar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguro Celular -->
+                    <div class="widget-card" data-type="celular">
+                        <div class="widget-icon">
+                            <i class='bx bx-mobile'></i>
+                        </div>
+                        <h3>Seguro Celular</h3>
+                        <p>Proteção para seu smartphone</p>
+                        <button class="widget-btn" onclick="toggleWidget('celular')">
+                            <span class="btn-text">Ver Informações</span>
+                            <i class='bx bx-chevron-down'></i>
+                        </button>
+
+                        <div class="widget-content" id="widget-celular">
+                            <div class="content-header">
+                                <i class='bx bx-info-circle'></i>
+                                <h4>Documentos e Informações Necessárias</h4>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-user'></i> Dados do Proprietário</h5>
+                                <ul>
+                                    <li>CPF</li>
+                                    <li>RG ou CNH</li>
+                                    <li>Comprovante de residência atualizado</li>
+                                    <li>Data de nascimento</li>
+                                    <li>E-mail</li>
+                                    <li>Telefone de contato</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-mobile-alt'></i> Informações do Aparelho</h5>
+                                <ul>
+                                    <li>Marca do celular (Apple, Samsung, Motorola, etc.)</li>
+                                    <li>Modelo exato do aparelho (ex: iPhone 14 Pro, Galaxy S23)</li>
+                                    <li>Número do IMEI (disque *#06# no celular)</li>
+                                    <li>Capacidade de armazenamento (64GB, 128GB, 256GB, etc.)</li>
+                                    <li>Cor do aparelho</li>
+                                    <li>Data da compra</li>
+                                    <li>Valor de mercado atual do aparelho</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section">
+                                <h5><i class='bx bx-receipt'></i> Comprovação de Compra</h5>
+                                <ul>
+                                    <li>Nota fiscal de compra do aparelho</li>
+                                    <li>Comprovante de pagamento</li>
+                                    <li>Se foi comprado parcelado, enviar comprovante do cartão</li>
+                                    <li>Fotos do aparelho (frente, verso e laterais)</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-section highlight">
+                                <h5><i class='bx bx-shield-check'></i> Coberturas Disponíveis</h5>
+                                <ul>
+                                    <li>Roubo e furto qualificado</li>
+                                    <li>Danos acidentais (quebra de tela, queda, água)</li>
+                                    <li>Oxidação e queima</li>
+                                    <li>Defeitos elétricos ou mecânicos</li>
+                                    <li>Assistência 24h</li>
+                                    <li>Aparelho reserva em caso de sinistro</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box warning">
+                                <i class='bx bx-error-circle'></i>
+                                <div>
+                                    <strong>Atenção:</strong>
+                                    <p>O aparelho deve estar em perfeito estado de funcionamento no momento da contratação. Aparelhos com tela trincada ou defeitos não podem ser segurados.</p>
+                                </div>
+                            </div>
+
+                            <div class="widget-actions">
+                                <a href="index.html#formAnchor" class="btn-primary">
+                                    <i class='bx bx-message-square-dots'></i>
+                                    Solicitar Cotação
+                                </a>
+                                <a href="https://wa.me/5511954234299?text=Olá!%20Gostaria%20de%20cotar%20um%20Seguro%20Celular" target="_blank" class="btn-whatsapp">
+                                    <i class='bx bxl-whatsapp'></i>
+                                    Cotar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ainda tem dúvidas?</h2>
+                <p>Nossa equipe está pronta para te ajudar a escolher a melhor proteção para você</p>
+                <div class="cta-buttons">
+                    <a href="index.html#formAnchor" class="cta-btn primary">
+                        <i class='bx bx-message-square-dots'></i>
+                        Falar com Especialista
+                    </a>
+                    <a href="tel:+5511954234299" class="cta-btn secondary">
+                        <i class='bx bx-phone-call'></i>
+                        (11) 95423-4299
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <p>&copy; 2025 MRN Corretora. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- WhatsApp Widget -->
+    <div class="wa-widget" id="waWidget">
+        <button class="wa-fab" id="waFab" aria-label="Abrir WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/>
+                <path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 005.713 1.447h.005c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411l.013-.029zm-8.475 18.299c-1.776 0-3.517-.479-5.032-1.378l-.36-.214-3.738.977 1.001-3.645-.235-.374a9.869 9.869 0 01-1.518-5.259c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.892 6.993c-.002 5.451-4.436 9.886-9.886 9.886z" fill="currentColor"/>
+            </svg>
+        </button>
+
+        <div class="wa-panel" id="waPanel" aria-hidden="true">
+            <div class="wa-header">
+                <div class="wa-title">
+                    <div class="wa-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/>
+                            <path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 005.713 1.447h.005c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411l.013-.029zm-8.475 18.299c-1.776 0-3.517-.479-5.032-1.378l-.36-.214-3.738.977 1.001-3.645-.235-.374a9.869 9.869 0 01-1.518-5.259c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.892 6.993c-.002 5.451-4.436 9.886-9.886 9.886z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="wa-info">
+                        <div class="wa-name">MRN Corretora</div>
+                        <div class="wa-sub">
+                            <div class="wa-badge"></div>
+                            <span>Online agora</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="wa-close" id="waClose" aria-label="Fechar">×</button>
+            </div>
+
+            <div class="wa-body">
+                <div class="wa-bubble">
+                    Olá! 👋<br>
+                    Como podemos te ajudar hoje?
+                    <div class="wa-bubble-time">agora</div>
+                </div>
+            </div>
+
+            <div class="wa-footer">
+                <a class="wa-cta" id="waCta" href="#" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/>
+                        <path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 005.713 1.447h.005c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411l.013-.029zm-8.475 18.299c-1.776 0-3.517-.479-5.032-1.378l-.36-.214-3.738.977 1.001-3.645-.235-.374a9.869 9.869 0 01-1.518-5.259c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.892 6.993c-.002 5.451-4.436 9.886-9.886 9.886z" fill="currentColor"/>
+                    </svg>
+                    Iniciar Conversa
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="cotacao-script.js"></script>
+</body>
+</html>
